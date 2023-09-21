@@ -29,6 +29,33 @@ public class SwagStepDefinition {
         swagPage.clickButtonById("login-button");
     }
 
+    @When("^El usuario selecciona un producto")
+    public void selectedProduct() {
+        swagPage.seleccionarProducto("Sauce Labs Backpack");
+        swagPage.regresarAProductos();
+        swagPage.seleccionarProducto("Sauce Labs Bike Light");
+        swagPage.regresarAProductos();
+        swagPage.seleccionarProducto("Sauce Labs Fleece Jacket");
+    }
+
+    @And("^El usuario agrega el producto al carrito")
+    public void irAlCarrito() {
+        swagPage.irAlCarrito();
+    }
+
+    @And("^Completa los datos para la compra")
+    public void completarInfoCliente() {
+        swagPage.completarInformacion("Victor", "Samines", "0701");
+    }
+    @And("^Finalizar compra")
+    public void finalizarCompra() {
+        swagPage.finalizarCompra();
+    }
+
+    @And("^Verificar la compra con exito")
+    public void compraConExito() {
+        swagPage.compraRealizadoConExito();
+    }
     @When("^Se cierra la sesion$")
     public void performLogout() {
         swagPage.logout();
