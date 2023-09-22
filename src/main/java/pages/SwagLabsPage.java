@@ -19,24 +19,32 @@ public class SwagLabsPage extends BasePage{
 
     public void enterField(String idField, String valueField){
         WebElement inputField = driver.findElement(By.id(idField));
-        inputField.sendKeys(valueField);
+        slowType(inputField, valueField);
+        //inputField.sendKeys(valueField);
     }
 
     public void seleccionarProducto(String nombreProducto) {
         // Encuentra el producto por su nombre y realiza la selección
         WebElement producto = driver.findElement(By.xpath("//div[contains(text(), '" + nombreProducto + "')]"));
+        WebDriverWait wait = new WebDriverWait(driver, 50); // Espera hasta 10 segundos
+        wait.until(ExpectedConditions.elementToBeClickable(producto));
         producto.click();
     }
 
     public void regresarAProductos() {
         WebElement btnRegresar = driver.findElement(By.id("back-to-products"));
+        WebDriverWait wait = new WebDriverWait(driver, 50); // Espera hasta 10 segundos
+        wait.until(ExpectedConditions.elementToBeClickable(btnRegresar));
         btnRegresar.click();
     }
 
     public void irAlCarrito() {
         WebElement carrito = driver.findElement(By.className("shopping_cart_link"));
+        WebDriverWait wait = new WebDriverWait(driver, 25); // Espera hasta 10 segundos
+        wait.until(ExpectedConditions.elementToBeClickable(carrito));
         carrito.click();
         WebElement btnCheckout = driver.findElement(By.id("checkout"));
+        wait.until(ExpectedConditions.elementToBeClickable(btnCheckout));
         btnCheckout.click();
     }
 
@@ -46,27 +54,48 @@ public class SwagLabsPage extends BasePage{
         WebElement inputPostalCode = driver.findElement(By.id("postal-code"));
         WebElement btnContinue = driver.findElement(By.id("continue"));
 
-        inputFirstName.sendKeys(firstName);
-        inputLastName.sendKeys(lastName);
-        inputPostalCode.sendKeys(postalCode);
+        //inputFirstName.sendKeys(firstName);
+        //inputLastName.sendKeys(lastName);
+        //inputPostalCode.sendKeys(postalCode);
+        slowType(inputFirstName, firstName);
+        slowType(inputLastName, lastName);
+        slowType(inputPostalCode, postalCode);
         btnContinue.click();
+    }
+
+    private void slowType(WebElement element, String text) {
+        for (char c : text.toCharArray()) {
+            element.sendKeys(String.valueOf(c));
+            sleep(90); // Espera 300 milisegundos entre cada carácter (ajusta el tiempo según tu preferencia)
+        }
+    }
+
+    private void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     public void finalizarCompra() {
         WebElement btnFinish = driver.findElement(By.id("finish"));
+        WebDriverWait wait = new WebDriverWait(driver, 15); // Espera hasta 10 segundos
+        wait.until(ExpectedConditions.elementToBeClickable(btnFinish));
         btnFinish.click();
     }
 
     public void compraRealizadoConExito() {
         WebElement h2ConGracias = driver.findElement(By.xpath("//h2[contains(text(), 'Thank you for your order!')]"));
+        h2ConGracias.isDisplayed();
     }
 
     public void logout() {
         // Abre el menú de usuario
         WebElement menuButton = driver.findElement(By.id("react-burger-menu-btn"));
+        WebDriverWait wait = new WebDriverWait(driver, 15); // Espera hasta 10 segundos
+        wait.until(ExpectedConditions.elementToBeClickable(menuButton));
         menuButton.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, 10); // Espera hasta 10 segundos
 
         WebElement logoutLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("logout_sidebar_link")));
         logoutLink.click();
@@ -75,6 +104,8 @@ public class SwagLabsPage extends BasePage{
     public boolean isLogoutSuccessful() {
         // Verifica que el logout se haya realizado con éxito
         WebElement loginButton = driver.findElement(By.id("login-button"));
+        WebDriverWait wait = new WebDriverWait(driver, 15); // Espera hasta 10 segundos
+        wait.until(ExpectedConditions.elementToBeClickable(loginButton));
         return loginButton.isDisplayed();
     }
 
