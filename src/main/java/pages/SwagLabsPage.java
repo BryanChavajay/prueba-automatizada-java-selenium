@@ -46,7 +46,11 @@ public class SwagLabsPage extends BasePage{
         wait.until(ExpectedConditions.elementToBeClickable(carrito));
         carrito.click();
         sleep(3000);
+    }
+
+    public  void checkoutCompra() {
         WebElement btnCheckout = driver.findElement(By.id("checkout"));
+        WebDriverWait wait = new WebDriverWait(driver, 25); // Espera hasta 10 segundos
         wait.until(ExpectedConditions.elementToBeClickable(btnCheckout));
         sleep(3000);
         btnCheckout.click();
@@ -54,18 +58,11 @@ public class SwagLabsPage extends BasePage{
 
     public void eliminarProductoDelCarrito(String nombreProducto) {
         // Encuentra el botón "Remove" para el producto específico (el ID puede variar)
-        WebElement btnEliminar = driver.findElement(By.id(nombreProducto.toLowerCase()));
-        sleep(10000);
-        btnEliminar.click();
-        /*WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement btnEliminar = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(nombreProducto)));
-        //sleep(3000);
-        btnEliminar.click();*/
-        /*WebDriverWait wait = new WebDriverWait(driver, 25); // Espera hasta 10 segundos
-        WebElement btnEliminar = driver.findElement(By.id("remove-" + nombreProducto.toLowerCase()));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement btnEliminar = driver.findElement(By.id("remove-" + nombreProducto.toLowerCase().replace(" ", "-")));
         wait.until(ExpectedConditions.elementToBeClickable(btnEliminar));
+        btnEliminar.click();
         sleep(3000);
-        btnEliminar.click();*/
     }
 
     public void completarInformacion(String firstName, String lastName, String postalCode) {

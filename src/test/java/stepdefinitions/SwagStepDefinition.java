@@ -41,6 +41,7 @@ public class SwagStepDefinition {
     @And("^El usuario agrega el producto al carrito")
     public void irAlCarrito() {
         swagPage.irAlCarrito();
+        swagPage.checkoutCompra();
     }
 
     @And("^Completa los datos para la compra")
@@ -74,10 +75,11 @@ public class SwagStepDefinition {
 
     @And("^El cliente elimina producto del carrito")
     public void eliminarProductoDelCarrito() {
-        swagPage.eliminarProductoDelCarrito( "remove-sauce-labs-backpack");
-        swagPage.eliminarProductoDelCarrito("remove-sauce-labs-bike-light");
-        swagPage.eliminarProductoDelCarrito("remove-sauce-labs-bolt-t-shirt");
-        swagPage.eliminarProductoDelCarrito("remove-sauce-labs-onesie");
+        swagPage.eliminarProductoDelCarrito( "Sauce Labs Backpack");
+        swagPage.eliminarProductoDelCarrito("Sauce Labs Bike Light");
+        swagPage.eliminarProductoDelCarrito("Sauce Labs Fleece Jacket");
+        swagPage.eliminarProductoDelCarrito("Sauce Labs Onesie");
+        swagPage.checkoutCompra();
     }
 
     @And("^Registra los datos para la compra")
