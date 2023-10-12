@@ -12,6 +12,14 @@ Feature: swag
     And El usuario agrega el producto al carrito
     And Completa los datos para la compra
     And Finalizar compra
+
+  @eliminarProducto
+  Scenario: Seleccionar y eliminar productos en swag
+    When Cuando el cliente elimina un producto
+    And El cliente agrega el producto al carrito
+    And El cliente elimina producto del carrito
+    And Registra los datos para la compra
+    And Finish
     And Verificar la compra con exito
 
   @salirDeSwag

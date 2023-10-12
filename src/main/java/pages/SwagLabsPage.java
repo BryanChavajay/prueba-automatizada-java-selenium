@@ -26,15 +26,17 @@ public class SwagLabsPage extends BasePage{
     public void seleccionarProducto(String nombreProducto) {
         // Encuentra el producto por su nombre y realiza la selección
         WebElement producto = driver.findElement(By.xpath("//div[contains(text(), '" + nombreProducto + "')]"));
-        WebDriverWait wait = new WebDriverWait(driver, 50); // Espera hasta 10 segundos
-        wait.until(ExpectedConditions.elementToBeClickable(producto));
+        sleep(3000);
         producto.click();
+
+        // Encuentra el botón "Add to Cart" (el ID puede variar)
+        WebElement btnAgregarAlCarrito = driver.findElement(By.id("add-to-cart-" + nombreProducto.toLowerCase().replace(" ", "-")));
+        btnAgregarAlCarrito.click();
     }
 
     public void regresarAProductos() {
         WebElement btnRegresar = driver.findElement(By.id("back-to-products"));
-        WebDriverWait wait = new WebDriverWait(driver, 50); // Espera hasta 10 segundos
-        wait.until(ExpectedConditions.elementToBeClickable(btnRegresar));
+        sleep(3000);
         btnRegresar.click();
     }
 
@@ -43,9 +45,27 @@ public class SwagLabsPage extends BasePage{
         WebDriverWait wait = new WebDriverWait(driver, 25); // Espera hasta 10 segundos
         wait.until(ExpectedConditions.elementToBeClickable(carrito));
         carrito.click();
+        sleep(3000);
         WebElement btnCheckout = driver.findElement(By.id("checkout"));
         wait.until(ExpectedConditions.elementToBeClickable(btnCheckout));
+        sleep(3000);
         btnCheckout.click();
+    }
+
+    public void eliminarProductoDelCarrito(String nombreProducto) {
+        // Encuentra el botón "Remove" para el producto específico (el ID puede variar)
+        WebElement btnEliminar = driver.findElement(By.id(nombreProducto.toLowerCase()));
+        sleep(10000);
+        btnEliminar.click();
+        /*WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement btnEliminar = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(nombreProducto)));
+        //sleep(3000);
+        btnEliminar.click();*/
+        /*WebDriverWait wait = new WebDriverWait(driver, 25); // Espera hasta 10 segundos
+        WebElement btnEliminar = driver.findElement(By.id("remove-" + nombreProducto.toLowerCase()));
+        wait.until(ExpectedConditions.elementToBeClickable(btnEliminar));
+        sleep(3000);
+        btnEliminar.click();*/
     }
 
     public void completarInformacion(String firstName, String lastName, String postalCode) {
@@ -80,7 +100,18 @@ public class SwagLabsPage extends BasePage{
 
     public void finalizarCompra() {
         WebElement btnFinish = driver.findElement(By.id("finish"));
-        WebDriverWait wait = new WebDriverWait(driver, 15); // Espera hasta 10 segundos
+        WebDriverWait wait = new WebDriverWait(driver, 15); // Espera hasta 15segundos
+        wait.until(ExpectedConditions.elementToBeClickable(btnFinish));
+        btnFinish.click();
+        WebElement btnBackToHome = driver.findElement(By.id("back-to-products"));
+        sleep(3000);
+        wait.until(ExpectedConditions.elementToBeClickable(btnBackToHome));
+        btnBackToHome.click();
+    }
+
+    public void finishshop() {
+        WebElement btnFinish = driver.findElement(By.id("finish"));
+        WebDriverWait wait = new WebDriverWait(driver, 15); // Espera hasta 15segundos
         wait.until(ExpectedConditions.elementToBeClickable(btnFinish));
         btnFinish.click();
     }
